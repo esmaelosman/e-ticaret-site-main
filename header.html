@@ -1,0 +1,79 @@
+<header>
+
+    <div class="nav container">
+        <a href="index.html" class="logo">Ecommerce</a>
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Shop</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+
+        <i class="fas fa-shopping-bag" id="cart-icon" data-quantity="0"></i>
+        
+        <div class="cart">
+            <h2 class="cart-title">Your Cart</h2>
+
+            <div class="cart-content">
+            
+            </div>
+
+            <div class="total">
+                <div class="total-title">Total</div>
+                <div class="total-price">0 $</div>
+            </div>
+
+            <a href="cart.html" class="btn-buy">Go To Cart</a>
+             
+            <i class="fas fa-x" id="close-cart"></i>
+        </div>
+    </div>
+</header>
+
+<section class="shop container">
+
+
+
+    <!-- Ürün Detay Modal -->
+    <div class="modal fade" id="product-modal" tabindex="-1" aria-labelledby="product-modal-label" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title bg-success" id="product-modal-label"></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <img id="modal-image" src="" alt="" class="img-fluid modal-img">
+                        </div>
+                        <div class="col-md-6">
+                            <div class="pr-detail">
+                                <div class="product_desc">
+                                    <h2 id="modal-title" class="product-title text-black"></h2>
+                                    <p id="modal-price" class="price"></p>
+                                    <div class="product-meta">
+                                        <p id="modal-description" class="product-description text-black"></p>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="cart_extra">
+                                    <div class="quantity-control">
+                                        <button id="btn-decrease" class="btn" onclick="decrease()">-</button>
+                                        <input id="quant-input" type="text" value="1" min="1" class="form-control">
+                                        <button id="btn-increase" class="btn" onclick="increase()">+</button>
+                                    </div>
+                                    <button id="add-to-cart" class="btn add-to-cart">Add to Cart</button>
+                                </div>
+                           </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+
+</script>

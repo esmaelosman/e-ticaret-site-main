@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart Page</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/style.css">
+
+</head>
+<body>
+    <header>
+
+        <div class="nav container">
+            <a href="index.html" class="logo">Ecommerce</a>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Shop</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+    
+            <i class="fas fa-shopping-bag" id="cart-icon" data-quantity="0"></i>
+            
+            <div class="cart">
+                <h2 class="cart-title">Your Cart</h2>
+    
+                <div class="cart-content">
+                
+                </div>
+    
+                <div class="total">
+                    <div class="total-title">Total</div>
+                    <div class="total-price">0 $</div>
+                </div>
+    
+                <a href="cart.html" class="btn-buy">Go To Cart</a>
+                 
+                <i class="fas fa-x" id="close-cart"></i>
+            </div>
+        </div>
+    </header>
+    
+    <section class="shop container">
+    
+    
+    
+        <!-- Ürün Detay Modal -->
+        <div class="modal fade" id="product-modal" tabindex="-1" aria-labelledby="product-modal-label" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title bg-success" id="product-modal-label"></h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <img id="modal-image" src="" alt="" class="img-fluid modal-img">
+                            </div>
+                            <div class="col-md-6">
+                                <div class="pr-detail">
+                                    <div class="product_desc">
+                                        <h2 id="modal-title" class="product-title text-black"></h2>
+                                        <p id="modal-price" class="price"></p>
+                                        <div class="product-meta">
+                                            <p id="modal-description" class="product-description text-black"></p>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div class="cart_extra">
+                                        <div class="quantity-control">
+                                            <button id="btn-decrease" class="btn" onclick="decrease()">-</button>
+                                            <input id="quant-input" type="text" value="1" min="1" class="form-control">
+                                            <button id="btn-increase" class="btn" onclick="increase()">+</button>
+                                        </div>
+                                        <button id="add-to-cart" class="btn add-to-cart">Add to Cart</button>
+                                    </div>
+                               </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="sepeteGit container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="sepet">
+                    <div class="top">
+                        <h2>Sepetim</h2>
+                    </div>
+                    <table cellspacing="0" class="table-head">
+                        <tr>
+                            <th width="150" class="head-img">Görsel</th>
+                            <th width="360">Ürün Adı</th>
+                            <th width="150">Fiyat</th>
+                            <th width="200">Adet</th>
+                            <th width="150">Tutar</th>
+                            <th width="70">Sil</th>
+                        </tr>
+                    </table>
+                    <table id="root" class="cart-row" cellspacing="0"></table>
+                    <hr>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-5">
+                <div class="discount">
+                    <div class="top">
+                        <h2>İndirim Kodu</h2>
+                    </div>
+                    <div class="summary-code" style="margin-top: -20px; padding: 0 30px;">
+                        <h2>Nakliye</h2>
+                        <input type="text" placeholder="Standart günlük teslimat">
+                        <h2>İndirim Kodu</h2>
+                        <input type="text" placeholder="Kupon Girin" id="promoCode">
+                        <div class="promo-container">
+                            <button class="first-btn" id="kuponUygulaButton">Uygula</button>
+                            <button class="d-none" id="delete-kupon" onclick="removeCoupon()" >Kuponu Sil</button>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="col-lg-7">
+
+                <div class="summary">
+                    <div class="top">
+                        <h2>Sipariş Özeti</h2>
+                    </div>
+                    
+                    <div class="table-responsive p-3 p-md-4">
+                        <table class="table sepet-table">
+                            <tbody>
+                            <tr>
+                                <td class="cart_total_label">Toplam Ürün :</td>
+                                <td class="cart_total_amount toplamAdet"><span></span> Adet</td>
+                            </tr>
+                            <tr>
+                                <td class="cart_total_label">Ürün Toplamı :</td>
+                                <td class="cart_total_amount urunToplami"><span> $</span></td>
+                            </tr>
+                            <tr class="border-top">
+                                <td class="cart_total_label">Sevkiyat Bedeli :</td>
+                                <td class="cart_total_amount kargo-yok d-none"><strong>Ücretsiz</strong></td>
+                                <td class="cart_total_amount kargo-var d-none"><strong></strong></td>
+                            </tr>
+                            
+                            <tr class="kupon-tr d-none">
+                                <td class="cart_total_label text-danger">Kupon :</td>
+                                <td class="cart_total_amount kupon-var text-danger"><strong></strong></td>
+                            </tr>
+                            <tr class="border-top">
+                                <td class="cart_total_label ">Toplam Tutar :</td>
+                                <td class="cart_total_amount toplamTutar"><span> $</span></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-lg-12 checkout-container" style="padding:0 10px;">
+                        <button class="checkout">Alışverişi Tamamla</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="toast-container position-fixed padding-3">
+          <div class="toast bg-white border-0">
+              <div class="d-flex">
+                  <div class="toast-body mt-n1">
+                  </div>
+                  <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+              </div>
+          </div>
+     </div>
+    </section>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+    
+    <script src="main.js"></script>
+</body>
+</html>
